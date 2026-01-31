@@ -14,7 +14,7 @@ type Todo struct {
 	Title       string
 	Completed   bool
 	CreatedAt   time.Time
-	completedAt *time.Time
+	CompletedAt *time.Time
 }
 
 type Todos []Todo
@@ -23,7 +23,7 @@ func (todos *Todos) Add(title string) {
 
 	todo := Todo{
 		Title:       title,
-		completedAt: nil,
+		CompletedAt: nil,
 		Completed:   false,
 		CreatedAt:   time.Now(),
 	}
@@ -62,7 +62,7 @@ func (todos *Todos) Toogle(index int) error {
 
 	if !isCompleted {
 		completionTime := time.Now()
-		t[index].completedAt = &completionTime
+		t[index].CompletedAt = &completionTime
 	}
 
 	t[index].Completed = !isCompleted
@@ -93,16 +93,16 @@ func (todos *Todos) Print() {
 	for index, t := range *todos {
 
 		completed := "❌"
-		completdAt := ""
+		completedAt := ""
 
 		if t.Completed {
 			completed = "✅"
-			if t.completedAt != nil {
-				completed = t.completedAt.Format(time.RFC1123)
+			if t.CompletedAt != nil {
+				completedAt = t.CompletedAt.Format(time.RFC1123)
 			}
 		}
 
-		table.AddRow(strconv.Itoa(index), t.Title, completed, t.CreatedAt.Format(time.RFC1123), completdAt)
+		table.AddRow(strconv.Itoa(index), t.Title, completed, t.CreatedAt.Format(time.RFC1123), completedAt)
 
 	}
 
